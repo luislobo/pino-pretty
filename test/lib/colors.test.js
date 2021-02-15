@@ -68,3 +68,40 @@ test('returns colorizing colorizer', async t => {
   colorized = colorizer.message('foo')
   t.is(colorized, '\u001B[36mfoo\u001B[39m')
 })
+
+test('returns colorizing colorizer with custom label', async t => {
+  const colorizer = getColorizer(true)
+
+  // test normal custom label change
+  let colorized = colorizer('info', {
+    30: {
+      name: 'info',
+      label: 'INFORMATION',
+      color: 'yellow'
+    }
+  })
+  t.is(colorized, '\u001b[33mINFORMATION\u001b[39m')
+
+  // test color with background
+  colorized = colorizer(10, {
+    10: {
+      name: 'trace',
+      label: 'TRACE',
+      color: 'white',
+      background: 'bgRed'
+    }
+  })
+
+  t.is(colorized, '\u001b[41m\u001b[37mTRACE\u001b[39m\u001b[49m')
+
+  // test color not found, defaulting white
+  colorized = colorizer('debug', {
+    20: {
+      name: 'debug',
+      label: 'DEBUG',
+      color: 'amarillo'
+    }
+  })
+
+  t.is(colorized, '\u001b[37mDEBUG\u001b[39m')
+})

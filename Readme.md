@@ -142,7 +142,8 @@ with keys corresponding to the options described in [CLI Arguments](#cliargs):
   search: 'foo == `bar`', // --search
   ignore: 'pid,hostname', // --ignore,
   hideObject: false // --hideObject
-  customPrettifiers: {}
+  customPrettifiers: {},
+  customLevels: false
 }
 ```
 
@@ -178,6 +179,59 @@ But this option can also be defined as a `function` with this prototype:
   messageFormat: (log, messageKey, levelLabel) => {
     // do some log message customization
     return customized_message;
+  }
+}
+```
+
+`customLevels` option allows you to customize the level names and colors.
+It is an object that has level number as attributes.
+Each level can have a log name, a label, a color, and a background color.
+Colors are the colors available in [chalk](https://www.npmjs.com/package/chalk).
+Ex:
+```js
+{
+  customLevels: {
+    10: {
+      name: 'silly',
+      label: 'SILLY',
+      color: 'cyan'
+    },
+    15: {
+      name: 'verbose',
+      label: 'VERBOSE',
+      color: 'gray'
+    },
+    20: {
+      name: 'debug',
+      label: 'DEBUG',
+      color: 'blue'
+    },
+    30: {
+      name: 'info',
+      label: 'INFO',
+      color: 'green'
+    },
+    35: {
+      name: 'log',
+      label: 'LOG',
+      color: 'green'
+    },
+    40: {
+      name: 'warn',
+      label: 'WARN',
+      color: 'yellow'
+    },
+    50: {
+      name: 'error',
+      label: 'ERROR',
+      color: 'red'
+    },
+    60: {
+      name: 'crit',
+      label: 'CRIT',
+      color: 'white',
+      background: 'bgRed'
+    }
   }
 }
 ```

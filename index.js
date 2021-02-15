@@ -57,6 +57,8 @@ module.exports = function prettyFactory (options) {
   const colorizer = colors(opts.colorize)
   const search = opts.search
 
+  const customLevels = opts.customLevels || {}
+
   return pretty
 
   function pretty (inputData) {
@@ -87,7 +89,7 @@ module.exports = function prettyFactory (options) {
         }, {})
     }
 
-    const prettifiedLevel = prettifyLevel({ log, colorizer, levelKey })
+    const prettifiedLevel = prettifyLevel({ log, colorizer, levelKey, customLevels })
     const prettifiedMetadata = prettifyMetadata({ log })
     const prettifiedTime = prettifyTime({ log, translateFormat: opts.translateTime, timestampKey })
 
